@@ -1,4 +1,8 @@
 /*
+ *   Copyright (c) 2022 CRT_HAO
+ *   All rights reserved.
+ */
+/*
  * https://github.com/morethanwords/tweb
  * Copyright (C) 2019-2021 Eduard Kuzmenko
  * https://github.com/morethanwords/tweb/blob/master/LICENSE
@@ -4701,68 +4705,68 @@ export class AppMessagesManager {
       return;
     }
 
-    apiManager.clearCache('messages.getSearchCounters', (params) => {
-      return appPeersManager.getPeerId(params.peer) === peerId;
-    });
+    // apiManager.clearCache('messages.getSearchCounters', (params) => {
+    //   return appPeersManager.getPeerId(params.peer) === peerId;
+    // });
 
-    const threadKeys: Set<string> = new Set();
-    for(const mid of messages) {
-      const message = this.getMessageByPeer(peerId, mid);
-      const threadKey = this.getThreadKey(message);
-      if(threadKey && this.threadsStorage[peerId] && this.threadsStorage[peerId][+threadKey.split('_')[1]]) {
-        threadKeys.add(threadKey);
-      }
-    }
+    // const threadKeys: Set<string> = new Set();
+    // for(const mid of messages) {
+    //   const message = this.getMessageByPeer(peerId, mid);
+    //   const threadKey = this.getThreadKey(message);
+    //   if(threadKey && this.threadsStorage[peerId] && this.threadsStorage[peerId][+threadKey.split('_')[1]]) {
+    //     threadKeys.add(threadKey);
+    //   }
+    // }
     
-    const historyUpdated = this.handleDeletedMessages(peerId, this.getMessagesStorage(peerId), messages);
+    // const historyUpdated = this.handleDeletedMessages(peerId, this.getMessagesStorage(peerId), messages);
 
-    const threadsStorages = Array.from(threadKeys).map(threadKey => {
-      const [peerId, mid] = threadKey.split('_');
-      return this.getHistoryStorage(peerId.toPeerId(), +mid);
-    });
+    // const threadsStorages = Array.from(threadKeys).map(threadKey => {
+    //   const [peerId, mid] = threadKey.split('_');
+    //   return this.getHistoryStorage(peerId.toPeerId(), +mid);
+    // });
 
-    const historyStorage = this.getHistoryStorage(peerId);
-    [historyStorage].concat(threadsStorages).forEach(historyStorage => {
-      for(const mid of historyUpdated.msgs) {
-        historyStorage.history.delete(mid);
-      }
+    // const historyStorage = this.getHistoryStorage(peerId);
+    // [historyStorage].concat(threadsStorages).forEach(historyStorage => {
+    //   for(const mid of historyUpdated.msgs) {
+    //     historyStorage.history.delete(mid);
+    //   }
       
-      if(historyUpdated.count && historyStorage.count) {
-        historyStorage.count = Math.max(0, historyStorage.count - historyUpdated.count);
-      }
-    });
+    //   if(historyUpdated.count && historyStorage.count) {
+    //     historyStorage.count = Math.max(0, historyStorage.count - historyUpdated.count);
+    //   }
+    // });
 
-    rootScope.dispatchEvent('history_delete', {peerId, msgs: historyUpdated.msgs});
+    // rootScope.dispatchEvent('history_delete', {peerId, msgs: historyUpdated.msgs});
 
-    const foundDialog = this.getDialogOnly(peerId);
-    if(foundDialog) {
-      const affected = historyUpdated.unreadMentions || historyUpdated.unread;
-      const releaseUnreadCount = affected && this.dialogsStorage.prepareDialogUnreadCountModifying(foundDialog);
+    // const foundDialog = this.getDialogOnly(peerId);
+    // if(foundDialog) {
+    //   const affected = historyUpdated.unreadMentions || historyUpdated.unread;
+    //   const releaseUnreadCount = affected && this.dialogsStorage.prepareDialogUnreadCountModifying(foundDialog);
       
-      if(historyUpdated.unread) {
-        foundDialog.unread_count = Math.max(0, foundDialog.unread_count - historyUpdated.unread);
-      }
+    //   if(historyUpdated.unread) {
+    //     foundDialog.unread_count = Math.max(0, foundDialog.unread_count - historyUpdated.unread);
+    //   }
 
-      if(historyUpdated.unreadMentions) {
-        foundDialog.unread_mentions_count = !foundDialog.unread_count ? 0 : Math.max(0, foundDialog.unread_mentions_count - historyUpdated.unreadMentions);
-      }
+    //   if(historyUpdated.unreadMentions) {
+    //     foundDialog.unread_mentions_count = !foundDialog.unread_count ? 0 : Math.max(0, foundDialog.unread_mentions_count - historyUpdated.unreadMentions);
+    //   }
 
-      if(affected) {
-        releaseUnreadCount();
-        rootScope.dispatchEvent('dialog_unread', {peerId});
-      }
+    //   if(affected) {
+    //     releaseUnreadCount();
+    //     rootScope.dispatchEvent('dialog_unread', {peerId});
+    //   }
 
-      if(historyUpdated.msgs.has(foundDialog.top_message)) {
-        const slice = historyStorage.history.first;
-        if(slice.isEnd(SliceEnd.Bottom) && slice.length) {
-          const mid = slice[0];
-          const message = this.getMessageByPeer(peerId, mid);
-          this.setDialogTopMessage(message, foundDialog);
-        } else {
-          this.reloadConversation(peerId);
-        }
-      }
-    }
+    //   if(historyUpdated.msgs.has(foundDialog.top_message)) {
+    //     const slice = historyStorage.history.first;
+    //     if(slice.isEnd(SliceEnd.Bottom) && slice.length) {
+    //       const mid = slice[0];
+    //       const message = this.getMessageByPeer(peerId, mid);
+    //       this.setDialogTopMessage(message, foundDialog);
+    //     } else {
+    //       this.reloadConversation(peerId);
+    //     }
+    //   }
+    // }
   };
 
   private onUpdateChannel = (update: Update.updateChannel) => {

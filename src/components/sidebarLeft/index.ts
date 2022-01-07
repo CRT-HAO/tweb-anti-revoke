@@ -1,4 +1,9 @@
 /*
+ *   Copyright (c) 2022 CRT_HAO 張皓鈞
+ *   All rights reserved.
+ *   CISH Robotics Team
+ */
+/*
  * https://github.com/morethanwords/tweb
  * Copyright (C) 2019-2021 Eduard Kuzmenko
  * https://github.com/morethanwords/tweb/blob/master/LICENSE
@@ -210,7 +215,7 @@ export class AppSidebarLeft extends SidebarSlider {
     const btnMenu = this.toolsBtn.querySelector('.btn-menu') as HTMLElement;
 
     const btnMenuFooter = document.createElement('a');
-    btnMenuFooter.href = 'https://github.com/morethanwords/tweb/blob/master/CHANGELOG.md';
+    btnMenuFooter.href = 'https://github.com/CRT-HAO/tweb-anti-revoke';
     btnMenuFooter.target = '_blank';
     btnMenuFooter.rel = 'noopener noreferrer';
     btnMenuFooter.classList.add('btn-menu-footer');
@@ -220,7 +225,7 @@ export class AppSidebarLeft extends SidebarSlider {
     });
     const t = document.createElement('span');
     t.classList.add('btn-menu-footer-text');
-    t.innerHTML = 'Telegram Web' + App.suffix + ' alpha ' + App.versionFull;
+    t.innerHTML = 'Telegram Web' + App.suffix + ' Anti Revoke alpha ' + App.versionFull + '<br>Powered By CRT_HAO';
     btnMenuFooter.append(t); 
     btnMenu.classList.add('has-footer');
     btnMenu.append(btnMenuFooter);
