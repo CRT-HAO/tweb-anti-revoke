@@ -1,4 +1,4 @@
-## Telegram Web K
+## Telegram Web K Anti Revoke
 Based on Webogram, patched and improved. Available for everyone here: https://web.telegram.org/k/
 
 
