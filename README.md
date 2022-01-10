@@ -1,5 +1,6 @@
 ## Telegram Web K Anti Revoke
-Based on Webogram, patched and improved. Available for everyone here: https://web.telegram.org/k/
+Modified from [Telegram Web K](https://github.com/morethanwords/tweb)  
+**Deleted message event blocked**
 
 
 ### Developing
